@@ -11,7 +11,8 @@ const getGradeLetter = (score) => {
     { min: 0, letter: "F" },
   ];
 
-  return grades.find((grade) => score >= grade.min).letter;
+  const grade = grades.find((grade) => score >= grade.min);
+  return grade ? grade.letter : "F";
 };
 
 module.exports = { calculateAverageGrade, getGradeLetter };
