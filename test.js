@@ -8,13 +8,19 @@ try {
   // Valid case 2: All same grades
   assert.strictEqual(calculateAverageGrade([85, 85, 85, 85]), 85);
 
-  // Invalid case 1: Empty array (handles by returning NaN)
-  const emptyResult = calculateAverageGrade([]);
-  assert.ok(isNaN(emptyResult), "Empty array should return NaN");
+  // Invalid case 1: Empty array (should throw error)
+  assert.throws(
+    () => calculateAverageGrade([]),
+    /Grades array cannot be empty/,
+    "Should throw error for empty array"
+  );
 
-  // Invalid case 2: Non-numeric values (handles by returning NaN)
-  const invalidResult = calculateAverageGrade(["a", "b", "c"]);
-  assert.ok(isNaN(invalidResult), "Non-numeric values should return NaN");
+  // Invalid case 2: Non-numeric values (should throw error)
+  assert.throws(
+    () => calculateAverageGrade(["a", "b", "c"]),
+    /All grades must be valid numbers/,
+    "Should throw error for non-numeric values"
+  );
 
   // Intentional fail (forces CI failure)
   //   assert.strictEqual(calculateAverageGrade([100, 80, 60]), 79);
@@ -25,11 +31,19 @@ try {
   // Valid case 2: Grade C
   assert.strictEqual(getGradeLetter(70), "C");
 
-  // Invalid case 1: Negative score (handles by returning F)
-  assert.strictEqual(getGradeLetter(-10), "F");
+  // Invalid case 1: Negative score (should throw error)
+  assert.throws(
+    () => getGradeLetter(-10),
+    /Score must be between 0 and 100/,
+    "Should throw error for negative score"
+  );
 
-  // Invalid case 2: Score above 100 (handles by returning A)
-  assert.strictEqual(getGradeLetter(150), "A");
+  // Invalid case 2: Score above 100 (should throw error)
+  assert.throws(
+    () => getGradeLetter(150),
+    /Score must be between 0 and 100/,
+    "Should throw error for score above 100"
+  );
 
   // Intentional fail (forces CI failure)
   //   assert.strictEqual(getGradeLetter(92), "B");
